@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rate Engine</title>
+	<script>
+		function calculateRate() {
+			var startTime = document.getElementById("startTime").value;
+			var endTime = document.getElementById("endTime").value;
+			var startHour = parseInt(startTime.substring(0, 2));
+			var endHour = parseInt(endTime.substring(0, 2));
+			var startMinute = parseInt(startTime.substring(3, 5));
+			var endMinute = parseInt(endTime.substring(3, 5));
+			var totalMinutes = (endHour - startHour) * 60 + (endMinute - startMinute);
+			var totalCost = 0;
+			if (totalMinutes <= 60) {
+				totalCost = 5;
+			} else if (totalMinutes <= 120) {
+				totalCost = 7;
+			} else if (totalMinutes <= 360) {
+				totalCost = 11 * (totalMinutes / 60);
+			} else if (totalMinutes <= 720) {
+				totalCost = 21 * (totalMinutes / 60);
+			} else if (totalMinutes <= 1440) {
+				totalCost = 40;
+			}
+			document.getElementById("totalCost").value = "$" + totalCost.toFixed(2);
+		}
+	</script>
+</head>
+<body>
+	<h1>Rate Engine</h1>
+	<form>
+		<label for="startTime">Start Time:</label>
+		<input type="time" id="startTime" name="startTime"><br><br>
+		<label for="endTime">End Time:</label>
+		<input type="time" id="endTime" name="endTime"><br><br>
+		<input type="button" value="Calculate Rate" onclick="calculateRate()"><br><br>
+		<label for="totalCost">Total Cost:</label>
+		<input type="text" id="totalCost" name="totalCost" readonly>
+	</form>
+</body>
+</html>
+
